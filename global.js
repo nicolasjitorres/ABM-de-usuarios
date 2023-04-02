@@ -17,7 +17,7 @@ expressApp.use(express.json()); //este es un middleware, sirve para entender el 
 expressApp.use(express.text());
 expressApp.use(cookieParser());
 expressApp.use("/account", accountRouter);
-expressApp.use("/auth-token", authTokenRouter);
+expressApp.use("/acc", authTokenRouter);
 
 
 const bootstrap = async () => {

@@ -19,15 +19,15 @@ accountRouter.get('/:id', async (req, res) => {
         console.log("El usuario no existe");
         return res.status(404).send();
     }
-    return res.send(user);
+    return res.send(`Nombre: ${user.name}, Email: ${user.email}`);
 });
 
 //crear una nueva cuenta a partir del id y name
 accountRouter.post('/', async (req, res) => {
-    const {id, name, email} = req.body;
+    const {id, name, email, password} = req.body;
 
-    if (!name || !id || !email) {
-        console.log("Por favor, ingrese un nombre y un id y un email.")
+    if (!name || !id || !email || !password) {
+        console.log("Por favor, ingrese un nombrem, un id, un email y una contraseña.")
         return res.status(400).send();
     }
 
@@ -39,7 +39,7 @@ accountRouter.post('/', async (req, res) => {
         return res.status(409).send(); //En el caso de que el usuario exista, se retorna el estado 409 conflicto
     }
 
-    const newUser = new userModel({_id:id, name, email});
+    const newUser = new userModel({_id:id, name, email, password});
     await newUser.save(); //Guardamos el usuario, utilizamos un await para esperar que termine este proceso
 
 

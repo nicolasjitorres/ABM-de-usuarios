@@ -57,8 +57,8 @@ authTokenRouter.get("/profile", async (req,res) => {
     try {
         const encoder = new TextEncoder();
         const {payload}= await jwtVerify(authorization, encoder.encode(process.env.JWT_PRIVATE_KEY));
-        const user = await userModel.findById(payload.id).exec(); 
-
+        const [user] = await userModel.find(payload.id).exec(); 
+        
         if (!user) {
             console.log("El usuario no existe.");
             return res.sendStatus(401);
