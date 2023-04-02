@@ -16,6 +16,7 @@ accountRouter.get('/:id', async (req, res) => {
     const user = await userModel.findById(id).exec();
 
     if (!user) {
+        console.log("El usuario no existe");
         return res.status(404).send();
     }
     return res.send(user);
@@ -35,31 +36,33 @@ accountRouter.post('/', async (req, res) => {
 
     if (user) {
         console.log("El usuario ya se encuentra registrado.")
-        return res.status(409).send(); //en el caso de que el usuario exista, se retorna el estado 409 conflicto 
+        return res.status(409).send(); //En el caso de que el usuario exista, se retorna el estado 409 conflicto
     }
 
     const newUser = new userModel({_id:id, name, email});
-    await newUser.save();
-    console.log("Usuario registrado exitosamente.")
+    await newUser.save(); //Guardamos el usuario, utilizamos un await para esperar que termine este proceso
 
-    //USERS_BBDD.push({id,name}) //aqui agregamos el nuevo usuario
+
+    console.log("Usuario registrado exitosamente.")
     
     return res.send();
 
 });
 
-//actualizar una cuenta
+// Actualizar una cuenta existente
 accountRouter.patch('/:id', async (req, res) => {
     const {id} = req.params;
     const {name} = req.body;
     
     if (!name) {
+        console.log("Por favor, ingrese el nombre que desea actualizar.");
         return res.status(400).send(); //en el caso de que no hay nombre se envia este estado
     }
 
     const user = await userModel.findById(id).exec(); //con find buscamos el id del usuario por el id ingresado y nos devuelve el usuario (obj)
 
-    if (!user) {
+    if (!user) { //si no existe el usuario, devolvemos el error 404 no encontrado
+        console.log("El usuario ingresado no existe.");
         return res.status(404).send();
     }
     
@@ -67,22 +70,24 @@ accountRouter.patch('/:id', async (req, res) => {
     
     await user.save(); //aqui se guarda los datos del usuario
 
+    console.log("Usuario actualizado exitosamente");
     return res.send(user);
 });
 
-//eliminar una cuenta
+//Eliminar una cuenta deseada
 accountRouter.delete('/:id', async (req, res) => {
     const {id} = req.params; //aqui desempaquetamos el usuario solo en id
     
     const user = await userModel.findById(id).exec();
     
     if (!user) {
+        console.log("Usuario no existente.");
         return res.status(404).send();
     }
 
     //aqui eliminamos el usuario
     await userModel.findByIdAndRemove(id).exec();
-
+    console.log("Usuario eliminado exitosamente.");
     return res.send();
 });
 

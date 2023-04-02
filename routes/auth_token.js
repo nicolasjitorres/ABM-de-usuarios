@@ -13,7 +13,7 @@ import validateLoginDTO from "../dto/validate_login_dto.js";
 
 const authTokenRouter = Router();
 
-//login con email y contraseña
+//Login con email y contraseña
 authTokenRouter.post("/login", validateLoginDTO, async (req,res) => {
     const { email, password } = req.body;
 
@@ -39,18 +39,18 @@ authTokenRouter.post("/login", validateLoginDTO, async (req,res) => {
 
     } catch (error) {
         return res.sendStatus(401);
-        
     }
 
 })
 
-//solicitud autenticada con token para obtener el perfil del usuario, ENDPOINT de perfil
 
+//solicitud autenticada con token para obtener el perfil del usuario, ENDPOINT de perfil
 authTokenRouter.get("/profile", async (req,res) => {
 
     const {authorization} = req.headers;
 
     if (!authorization) {
+        console.log("Usuario no autorizado.");
         return res.status(401);
     }
 
@@ -60,6 +60,7 @@ authTokenRouter.get("/profile", async (req,res) => {
         const user = await userModel.findById(payload.id).exec(); 
 
         if (!user) {
+            console.log("El usuario no existe.");
             return res.sendStatus(401);
         }
 

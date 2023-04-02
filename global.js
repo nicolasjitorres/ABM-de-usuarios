@@ -2,8 +2,6 @@ console.clear();
 
 import accountRouter from "./routes/account.js";
 import dotenv from "dotenv"; //se importa la libreria
-import authRouter from "./routes/auth.js";
-import authSessionRouter from "./routes/auth_session.js";
 import authTokenRouter from "./routes/auth_token.js";
 import cookieParser from "cookie-parser";
 import mongoose from "mongoose";
@@ -19,8 +17,6 @@ expressApp.use(express.json()); //este es un middleware, sirve para entender el 
 expressApp.use(express.text());
 expressApp.use(cookieParser());
 expressApp.use("/account", accountRouter);
-expressApp.use("/auth", authRouter);
-expressApp.use("/auth-session", authSessionRouter);
 expressApp.use("/auth-token", authTokenRouter);
 
 
