@@ -1,0 +1,27 @@
+{
+  "name": "curso-nodejs",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "dev": "nodemon global.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "nodemon": "2.0.21"
+  },
+  "dependencies": {
+    "@sinclair/typebox": "^0.26.0",
+    "ajv": "^8.12.0",
+    "ajv-errors": "^3.0.0",
+    "ajv-formats": "^2.1.1",
+    "cookie-parser": "^1.4.6",
+    "dotenv": "^16.0.3",
+    "express": "4.18.2",
+    "jose": "4.13.1",
+    "mongoose": "7.0.2",
+    "nanoid": "^4.0.1"
+  }
+}
